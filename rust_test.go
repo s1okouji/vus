@@ -100,11 +100,6 @@ func TestUnzip_normal2(t *testing.T) {
 	except = append(except, "tmp\\sample\\sample_b.txt")
 	check(except)
 }
-
-func TestDeploy(t *testing.T) {
-	DeployOxide()
-}
-
 func TestDownload(t *testing.T) {
 	var config RustConfig
 	config.Config = *LoadConfig()
@@ -113,4 +108,8 @@ func TestDownload(t *testing.T) {
 
 func TestGetURL(t *testing.T) {
 	fmt.Println(getLinuxAssetsUrl(getToken()))
+}
+
+func TestDeploy(t *testing.T) {
+	DeployOxide()
 }

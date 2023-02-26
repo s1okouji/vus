@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v3"
 )
@@ -33,5 +34,6 @@ func LoadConfig() *Config {
 }
 
 func (c *Config) GetToken() string {
-	return (*c.Data)["github"].(map[string]interface{})["token"].(string)
+	// return (*c.Data)["github"].(map[string]interface{})["token"].(string)
+	return os.Getenv("token")
 }
