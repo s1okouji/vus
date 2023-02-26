@@ -36,6 +36,13 @@ func beforeEach() {
 	}
 }
 
+func getToken() string {
+	// var config RustConfig
+	// config.Config = *LoadConfig()
+	// return config.GetToken()
+	return os.Getenv("token")
+}
+
 func check(except []string) {
 	root := "./tmp" // 探索を開始するルートディレクトリ
 	i := 0
@@ -101,9 +108,9 @@ func TestDeploy(t *testing.T) {
 func TestDownload(t *testing.T) {
 	var config RustConfig
 	config.Config = *LoadConfig()
-	downloadLatestOxide(config.GetServerPath())
+	downloadLatestOxide(config.GetServerPath(), getToken())
 }
 
 func TestGetURL(t *testing.T) {
-	fmt.Println(getLinuxAssetsUrl())
+	fmt.Println(getLinuxAssetsUrl(getToken()))
 }
