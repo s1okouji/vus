@@ -7,7 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 func DeployOxide() error {
@@ -22,21 +24,21 @@ func DeployOxide() error {
 		log.Println("Update to New Version" + latestVersion)
 		log.Println("Stop Rust Process")
 		// TODO: 潜在的にバグの可能性を秘めているので修正するべき
-		// err := exec.Command("systemctl", "stop", "rust-server.service").Wait()
-		// if err != nil {
-		// 	return err
-		// }
+		err := exec.Command("systemctl", "stop", "rust-server.service").Wait()
+		if err != nil {
+			return err
+		}
 		log.Println("Update Rust Dedicated Version. Please Wait.")
-		// script := "/usr/games/steamcmd +@sSteamCmdForcePlatformType linux +force_install_dir /opt/rust_server +login anonymous +app_update 258550 validate +quit"
-		// cmd_array := strings.Split(script, " ")
-		// out, err := exec.Command(cmd_array[0], cmd_array[1:]...).Output()
-		// if err != nil {
-		// 	return err
-		// }
+		script := "/usr/games/steamcmd +@sSteamCmdForcePlatformType linux +force_install_dir /opt/rust_server +login anonymous +app_update 258550 validate +quit"
+		cmd_array := strings.Split(script, " ")
+		out, err := exec.Command(cmd_array[0], cmd_array[1:]...).Output()
+		if err != nil {
+			return err
+		}
 
-		// log.Println(string(out))
+		log.Println(string(out))
 
-		err := downloadLatestOxide(config.GetServerPath(), config.GetToken())
+		err = downloadLatestOxide(config.GetServerPath(), config.GetToken())
 		if err != nil {
 			return err
 		}
@@ -44,10 +46,10 @@ func DeployOxide() error {
 		unzip(config.GetServerPath()+"/Oxide.zip", config.GetServerPath())
 		log.Println("Finish to unzip Oxide Files")
 		os.Remove(config.GetServerPath() + "/Oxide.zip")
-		// out, err = exec.Command("systemctl", "start", "rust-server.service").Output()
-		// if err != nil {
-		// 	return err
-		// }
+		out, err = exec.Command("systemctl", "start", "rust-server.service").Output()
+		if err != nil {
+			return err
+		}
 
 		// log.Println(out)
 

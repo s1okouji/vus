@@ -110,6 +110,6 @@ func TestGetURL(t *testing.T) {
 	fmt.Println(getLinuxAssetsUrl(getToken()))
 }
 
-func TestDeploy(t *testing.T) {
-	DeployOxide()
-}
+// func TestDeploy(t *testing.T) {
+// 	DeployOxide()
+// }
