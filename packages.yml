@@ -1,0 +1,6 @@
+rust:
+  oxide:
+    version: ""
+  path: "./tmp"
+github:
+  token: 
