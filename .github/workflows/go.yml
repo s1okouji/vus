@@ -22,7 +22,13 @@ jobs:
         go-version: 1.19
 
     - name: Build
-      run: go build -v ./...
+      run:  mkdir bin && cd bin && go build -v ../... && cd ..
 
     - name: Test
       run: export token=${{ secrets.TOKEN }} && go test -v ./...
+
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: client_${{ github.sha }}
+        path: bin
