@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 )
 
 func main() {
@@ -12,5 +14,8 @@ func main() {
 	var config RustConfig
 	config.Config = *LoadConfig()
 	fmt.Println(config.LoadedVersion())
-	DeployOxide()
+	err := downloadLatestOxide("./", os.Getenv("token"))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
